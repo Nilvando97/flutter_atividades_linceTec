@@ -1,7 +1,12 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 
-class Ap1 extends StatelessWidget {
+
+void main() {
+  runApp(MyApp1());
+}
+
+class MyApp1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
