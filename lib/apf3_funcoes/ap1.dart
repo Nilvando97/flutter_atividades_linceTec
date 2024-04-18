@@ -32,9 +32,11 @@ class _FormularioState extends State<Formulario> {
   void _salvarFormulario() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      setState(() {
-        _inativo = _inativo;
-      });
+      setState(
+        () {
+          _inativo = _inativo;
+        },
+      );
     }
   }
 
