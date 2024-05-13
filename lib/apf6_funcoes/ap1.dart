@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 void main() {
   runApp(
     ChangeNotifierProvider(
@@ -67,10 +66,18 @@ class TelaInicial extends StatelessWidget {
 }
 
 class ListaPessoasCadrastrada extends StatelessWidget {
-void _deletarPessoa(BuildContext context, Pessoa pessoa) {
-  Provider.of<PessoasProvider>(context, listen: false).deletarPessoa(pessoa);
-}
+  void _deletarPessoa(BuildContext context, Pessoa pessoa) {
+    Provider.of<PessoasProvider>(context, listen: false).deletarPessoa(pessoa);
+  }
 
+  void _editarPessoa(BuildContext context, Pessoa pessoa) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AdicionarPessoa(pessoa: pessoa),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,16 +94,23 @@ void _deletarPessoa(BuildContext context, Pessoa pessoa) {
           return ListTile(
             title: Text(pessoa.NomeCompleto),
             subtitle: Text(pessoa.email),
-            
             trailing: SizedBox(
-              width: 100,
+              width: 150,
               child: Row(
                 children: [
                   Text(pessoa.bloodType),
-                  IconButton(icon: Icon(Icons.delete),
-                  onPressed: () {
-                    _deletarPessoa(context, pessoa);
-                  },)
+                  IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () {
+                      _deletarPessoa(context, pessoa);
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.edit),
+                    onPressed: () {
+                      _editarPessoa(context, pessoa);
+                    },
+                  ),
                 ],
               ),
             ),
@@ -161,7 +175,8 @@ class _AddEditPersonPageState extends State<AdicionarPessoa> {
     _NomeCompletoControler =
         TextEditingController(text: widget.pessoa?.NomeCompleto ?? '');
     _emailController = TextEditingController(text: widget.pessoa?.email ?? '');
-    _TelefoneControler = TextEditingController(text: widget.pessoa?.Telefone ?? '');
+    _TelefoneControler =
+        TextEditingController(text: widget.pessoa?.Telefone ?? '');
     _githubController =
         TextEditingController(text: widget.pessoa?.github ?? '');
     _bloodType = widget.pessoa?.bloodType ?? 'A+';
